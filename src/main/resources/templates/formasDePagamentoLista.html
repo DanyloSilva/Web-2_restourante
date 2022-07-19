@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br"	xmlns:th="http://thymeleaf.org" 
+					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<title>Restaurante</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="meusPedidos" sec:authorize="hasAuthority('ROLE_CLIENTE')">Meus Pedidos <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="formasDePagamentoLista" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">Formas de Pagamento</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="listaDeClientes" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">Clientes</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="listaDePedidos" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">Lista de Pedidos Totais</a>
+				</li>
+			</ul>
+			<span class="navbar-text">
+				<a class="nav-link" href="logout">Logout</a>
+			</span>
+		</div>
+	</nav>
+</body>
+
+</br>
+
+<h3>Lista de Formas de Pagamentos Cadastradas: </h3>
+
+<br/>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"><center>ID</center></th>
+      <th scope="col"><center>Descrição</center></th>
+      <th scope="col"><center>#</center></th>
+    </tr>
+  </thead>
+  <tbody>
+  	<tr th:each="formaDePagamentoAtual: ${formasDePagamentos}">
+  		<td><center th:text="${formaDePagamentoAtual.id}"></center></td>
+  		<td><center th:text="${formaDePagamentoAtual.descricao}"></center></td>
+        <td><center></center></td>
+  	</tr>
+  	<tr>
+  		<td></td>
+  		<td></td>
+  		<td><center><a href="cadastrarFormaDePagamento" class="btn btn-outline-warning">Cadastrar um Nova Forma de Pagamento</center><td>
+  	</tr>
+  </tbody>
+</table>
+
+</html>
